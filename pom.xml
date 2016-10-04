@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>diff</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <name>Diff</name>
     <description>WebJar for Diff</description>
     <url>http://webjars.org</url>
@@ -41,7 +41,7 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <upstreamVersion>1.2.1</upstreamVersion>
+        <upstreamVersion>3.0.0</upstreamVersion>
         <sourceUrl>https://github.com/kpdecker/jsdiff/archive</sourceUrl>
         <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstreamVersion}</destDir>
         <extractDir>${project.build.directory}/jsdiff-${upstreamVersion}</extractDir>
@@ -91,11 +91,15 @@
                         <goals><goal>run</goal></goals>
                         <configuration>
                             <target>
-                                <echo message="unzip archive" />
-                                <unzip src="${project.build.directory}/diff.zip" dest="${project.build.directory}" />
-                                <echo message="moving resources" />
-                                <move file="${extractDir}/diff.js" todir="${destDir}" />
-                                <move file="${extractDir}/package.json" todir="${destDir}" />
+                                <echo message="unzip archive"/>
+                                <unzip src="${project.build.directory}/diff.zip" dest="${project.build.directory}"/>
+                                <exec executable="npm" dir="${project.build.directory}/jsdiff-${upstreamVersion}">
+                                    <arg value="install"/>
+                                </exec>
+                                <exec executable="node_modules/.bin/grunt" dir="${project.build.directory}/jsdiff-${upstreamVersion}"/>
+                                <move todir="${destDir}">
+                                    <fileset dir="${project.build.directory}/jsdiff-${upstreamVersion}/dist"/>
+                                </move>
                             </target>
                         </configuration>
                     </execution>
