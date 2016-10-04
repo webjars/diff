@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>diff</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <name>Diff</name>
     <description>WebJar for Diff</description>
     <url>http://webjars.org</url>
@@ -28,7 +28,7 @@
         <url>http://github.com/webjars/diff</url>
         <connection>scm:git:https://github.com/webjars/diff.git</connection>
         <developerConnection>scm:git:https://github.com/webjars/diff.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>diff-3.0.0</tag>
     </scm>
 
     <developers>
@@ -91,14 +91,14 @@
                         <goals><goal>run</goal></goals>
                         <configuration>
                             <target>
-                                <echo message="unzip archive"/>
-                                <unzip src="${project.build.directory}/diff.zip" dest="${project.build.directory}"/>
+                                <echo message="unzip archive" />
+                                <unzip src="${project.build.directory}/diff.zip" dest="${project.build.directory}" />
                                 <exec executable="npm" dir="${project.build.directory}/jsdiff-${upstreamVersion}">
-                                    <arg value="install"/>
+                                    <arg value="install" />
                                 </exec>
-                                <exec executable="node_modules/.bin/grunt" dir="${project.build.directory}/jsdiff-${upstreamVersion}"/>
+                                <exec executable="node_modules/.bin/grunt" dir="${project.build.directory}/jsdiff-${upstreamVersion}" />
                                 <move todir="${destDir}">
-                                    <fileset dir="${project.build.directory}/jsdiff-${upstreamVersion}/dist"/>
+                                    <fileset dir="${project.build.directory}/jsdiff-${upstreamVersion}/dist" />
                                 </move>
                             </target>
                         </configuration>
